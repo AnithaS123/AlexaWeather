@@ -6,6 +6,7 @@ var app = new alexa.app('test-skill');
 var requestpackage = require('request');
 var rp = require('request-promise');
 var http = require('http');
+var Client = require('node-rest-client').Client;
 
 app.launch(function (request, response) {
     response.say('Welcome to Weather Forecasting You want to know about the today forecast').shouldEndSession(false);
@@ -26,35 +27,81 @@ app.intent('WeatherIntent', {
     }
 },
     function (request, response) {
-        this.response = response;
+        // this.response = response;
         var city = request.slot('cityname');
 
         if (city) {
-            var options = {
-                method: 'GET',
-                uri: `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f124bbe4bc06cf62b4dbbc17cb4c0692`,
-                json: true,
-                resolveWithFullResponse: true,
-                // timeout: 160
-            };
+            // var options = {
+            //     method: 'GET',
+            //     uri: `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f124bbe4bc06cf62b4dbbc17cb4c0692`,
+            //     json: true,
+            //     resolveWithFullResponse: true,
+            //     // timeout: 160
+            // };
             var rescontent = null;
-            rp(options)
-                .then(function (res) {
-                    let desc = res.body.weather[0].description;
-                    let humidity = res.body.main.humidity;
-                    let visibility = res.body.visibility;
-                    let wind = res.body.wind.speed;
-                    let temp = res.body.main.temp;
-                    let city = res.body.name;
-                    Citydata = `Today weather looks  ${desc}  in  ${city}  with humidity is ${humidity}  temperature is ${temp} visibility is ${visibility} and the wind speed is ${wind} Do you like to continue.`;
+            // var faaHelper = new FAADataHelper();
+            // faaHelper.requestStatus(city).then(function (Status) {
+            //      console.log(Status.name);
+            //       response.say("After timeout!").say(" test ");
+            //     //response.say(Status.name);//.send();
+            //     // setTimeout(function () {
+            //     //     response.say("After timeout!").say(" test ");
+            //     //     response.send();
+            //     // }, 1000);
 
-                    //  console.log("hi.. "+ JSON.stringify(res));
-                    response.say("res.. " + Citydata).send();
-                })
-                .catch(function (err) {
-                    var prompt = 'I didn\'t have data';
-                    response.say(prompt).shouldEndSession(false).send();
-                });
+            // }).catch(function (err) {
+            //     //console.log(err.statusCode);
+            //     var prompt = 'I didn\'t have data';
+            //     response.say(prompt).shouldEndSession(false).send();
+            // });
+            // return false;
+            var client = new Client();
+
+            // direct way 
+            client.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f124bbe4bc06cf62b4dbbc17cb4c0692`, function (data, res) {
+                // parsed response body as js object 
+                console.log("resut 1" + JSON.stringify(data));
+                // raw response 
+                //console.log("resut 2" + res);
+                let desc = data.weather[0].description;
+                let humidity = data.main.humidity;
+                let visibility = data.visibility;
+                let wind = data.wind.speed;
+                let temp = data.main.temp;
+                let city = data.name;
+                Citydata = `Today weather looks  ${desc}  in  ${city}  with humidity is ${humidity}  temperature is ${temp} visibility is ${visibility} and the wind speed is ${wind} Do you like to continue.`;
+                console.log("city result" + Citydata);
+                //  console.log("hi.. "+ JSON.stringify(res));
+                response.say(`Today weather looks  ${desc}  in  ${city}  with humidity is ${humidity} degrees  temperature is ${temp} degree visibility is ${visibility} and the wind speed is ${wind} Do you like to continue.`);
+                // Response.say()
+            });
+
+            // registering remote methods 
+            // client.registerMethod("jsonMethod", `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f124bbe4bc06cf62b4dbbc17cb4c0692`, "GET");
+
+            // client.methods.jsonMethod(function (data, response) {
+            //     // parsed response body as js object 
+            //     console.log(data);
+            //     // raw response 
+            //     console.log(response);
+            // });
+            // rp(options)
+            //     .then(function (res) {
+            //         let desc = res.body.weather[0].description;
+            //         let humidity = res.body.main.humidity;
+            //         let visibility = res.body.visibility;
+            //         let wind = res.body.wind.speed;
+            //         let temp = res.body.main.temp;
+            //         let city = res.body.name;
+            //         Citydata = `Today weather looks  ${desc}  in  ${city}  with humidity is ${humidity}  temperature is ${temp} visibility is ${visibility} and the wind speed is ${wind} Do you like to continue.`;
+
+            //         //  console.log("hi.. "+ JSON.stringify(res));
+            //         response.say("res.. " + Citydata).send();
+            //     })
+            //     .catch(function (err) {
+            //         var prompt = 'I didn\'t have data';
+            //         response.say(prompt).shouldEndSession(false).send();
+            //     });
             // var content = requestpackage(options, callback);
             // console.log("willa df adfa df ");
             // GetcityResponse(city, function (error, result) {
