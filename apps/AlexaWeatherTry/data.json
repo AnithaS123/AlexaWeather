@@ -1,75 +1,28 @@
 {
-    "statusCode": 200,
-    "body": {
-        "coord": {
-            "lon": 80.28,
-            "lat": 13.09
-        },
-        "weather": [
-            {
-                "id": 801,
-                "main": "Clouds",
-                "description": "few clouds",
-                "icon": "02n"
-            }
-        ],
-        "base": "stations",
-        "main": {
-            "temp": 302.15,
-            "pressure": 1007,
-            "humidity": 83,
-            "temp_min": 302.15,
-            "temp_max": 302.15
-        },
-        "visibility": 6000,
-        "wind": {
-            "speed": 1.5,
-            "deg": 220
-        },
-        "clouds": {
-            "all": 20
-        },
-        "dt": 1504972800,
-        "sys": {
-            "type": 1,
-            "id": 7834,
-            "message": 0.0063,
-            "country":"I
-N","sunrise":1504916876,"sunset":1504961031},"id":1264527,"name":"Chennai","cod":200},"headers":{"server":"openresty","date":"Sat,
-            09 S
-ep201717: 03: 25 GMT","content-type":"application/json; charset=utf-8","content-length":"446","connection":"close","x-cache-key":"/data
-/2.5/weather?q=chennai","access-control-allow-origin":"*","access-control-allow-credentials":"true","access-control-allow-methods":"GET, POST"},"request":{"uri":{"protocol":"http: ","slashes":true,"auth":null,"host":"api.openweathermap.org","port":80,"hostname":"api.open
-weathermap.org","hash":null,"search":"?q=chennai&appid=f124bbe4bc06cf62b4dbbc17cb4c0692","query":"q=chennai&appid=f124bbe4bc06cf62b4dbb
-c17cb4c0692","pathname":"/data/2.5/weather","path":"/data/2.5/weather?q=chennai&appid=f124bbe4bc06cf62b4dbbc17cb4c0692","href":"http: //
-api.openweathermap.org/data/2.5/weather?q=chennai&appid=f124bbe4bc06cf62b4dbbc17cb4c0692"},"method":"GET","headers":{"accept":"applicat
-ion/json"}}}
-
-
-
-
-
-{
-                "uri": {
-                    "protocol": "http:",
-                    "slashes": true,
-                    "auth": null,
-                    "host": "api.openweathermap.org",
-                    "port": 80,
-                    "hostname":"api.openwe
-athermap.org","hash":null,"search":"?q=cuddalore&appid=f124bbe4bc06cf62b4dbbc17cb4c0692","query":"q=cuddalore&appid=f124bbe4bc06cf62b4d
-bbc17cb4c0692","pathname":"/data/2.5/weather","path":"/data/2.5/weather?q=cuddalore&appid=f124bbe4bc06cf62b4dbbc17cb4c0692","href":"htt
-p: //api.openweathermap.org/data/2.5/weather?q=cuddalore&appid=f124bbe4bc06cf62b4dbbc17cb4c0692"},"method":"GET","headers":{"host":"api.
-openweathermap.org","accept":"application/json"}}
-
-
-{
-                        "uri": {
-                            "protocol": "http:",
-                            "slashes": true,
-                            "auth": null,
-                            "host": "api.openweathermap.org",
-                            "port": 80,
-                            "hostname": "api.openweathermap.org",
-                            "hash": null,"search
-":"?q=cuddalore&appid=f124bbe4bc06cf62b4dbbc17cb4c0692","query":"q=cuddalore&appid=f124bbe4bc06cf62b4dbbc17cb4c0692","pathname":"/data/2.5/weather","path":"/data/2.5
-/weather?q=cuddalore&appid=f124bbe4bc06cf62b4dbbc17cb4c0692","href":"http: //api.openweathermap.org/data/2.5/weather?q=cuddalore&appid=f124bbe4bc06cf62b4dbbc17cb4c069 2"},"method":"GET","headers":{"host":"api.openweathermap.org","accept":"application/json"}}
+    "coord": {
+        "lon": 79.75,
+        "lat": 11.75
+    },
+    "weather": [
+        {
+            "id": 800,
+            "main": "Clear",
+            "description": "clear sky",
+            "icon": "01d"
+        }
+    ],
+    "base":"stations
+","main":{"temp":302.883,"pressure":1014.5,"humidity":88,"temp_min":302.883,"temp_max":302.883,"sea_level":1017.28,"grnd_level":1014.5},
+    "wind": {
+        "speed": 4.42,
+        "deg": 124.002
+    },
+    "clouds": {
+        "all": 0
+    },
+    "dt": 1505044960,
+    "sys": {
+        "message": 0.0065,
+        "country": "IN",
+        "sunrise": 1505003432,"su
+nset":1505047496},"id":1273802,"name":"Cuddalore","cod":200}

@@ -70,9 +70,9 @@ app.intent('WeatherIntent', {
                 let temp = data.main.temp;
                 let city = data.name;
                 Citydata = `Today weather looks  ${desc}  in  ${city}  with humidity is ${humidity}  temperature is ${temp} visibility is ${visibility} and the wind speed is ${wind} Do you like to continue.`;
-                console.log("city result" + Citydata);
+                console.log("city result  \n" + Citydata);
                 //  console.log("hi.. "+ JSON.stringify(res));
-                response.say(`Today weather looks  ${desc}  in  ${city}  with humidity is ${humidity} degrees  temperature is ${temp} degree visibility is ${visibility} and the wind speed is ${wind} Do you like to continue.`);
+                response.say(Citydata).shouldEndSession(false);
                 // Response.say()
             });
 
