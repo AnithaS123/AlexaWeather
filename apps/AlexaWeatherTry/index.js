@@ -8,7 +8,7 @@ var rp = require('request-promise');
 var http = require('http');
 
 app.launch(function (request, response) {
-    response.say('Welcome to Weather Forecasting').reprompt('You want to know about the today forecast').shouldEndSession(false).remprompt('I\'m still listening.');
+    response.say('Welcome to Weather Forecasting You want to know about the today forecast').shouldEndSession(false);
 });
 
 app.error = function (exception, request, response) {
@@ -33,10 +33,28 @@ app.intent('WeatherIntent', {
             var options = {
                 method: 'GET',
                 uri: `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f124bbe4bc06cf62b4dbbc17cb4c0692`,
-                json: true
+                json: true,
+                resolveWithFullResponse: true,
                 // timeout: 160
             };
             var rescontent = null;
+            rp(options)
+                .then(function (res) {
+                    let desc = res.body.weather[0].description;
+                    let humidity = res.body.main.humidity;
+                    let visibility = res.body.visibility;
+                    let wind = res.body.wind.speed;
+                    let temp = res.body.main.temp;
+                    let city = res.body.name;
+                    Citydata = `Today weather looks  ${desc}  in  ${city}  with humidity is ${humidity}  temperature is ${temp} visibility is ${visibility} and the wind speed is ${wind} Do you like to continue.`;
+
+                    //  console.log("hi.. "+ JSON.stringify(res));
+                    response.say("res.. " + Citydata).send();
+                })
+                .catch(function (err) {
+                    var prompt = 'I didn\'t have data';
+                    response.say(prompt).shouldEndSession(false).send();
+                });
             // var content = requestpackage(options, callback);
             // console.log("willa df adfa df ");
             // GetcityResponse(city, function (error, result) {
@@ -54,33 +72,33 @@ app.intent('WeatherIntent', {
 
 
             // var weatherreport = require('./weather')(city);
-          var result =  requestpackage(options, function (error, res) {
-                //var data = JSON.stringify(body);
-                //var responseParse = JSON.parse(response);
-                //console.log("hai output shown : " + responseParse);
-                // let desc = responseParse.body.weather.description;
-                let desc = res.body.weather[0].description;
-                // response.body.weather.forEach(function(element) {
-                //    console.log(JSON.stringify(element));
+            //           var result =  requestpackage(options, function (error, res) {
+            //                 //var data = JSON.stringify(body);
+            //                 //var responseParse = JSON.parse(response);
+            //                 //console.log("hai output shown : " + responseParse);
+            //                 // let desc = responseParse.body.weather.description;
+            //                 let desc = res.body.weather[0].description;
+            //                 // response.body.weather.forEach(function(element) {
+            //                 //    console.log(JSON.stringify(element));
 
-                // }, this);
+            //                 // }, this);
 
-               // console.log("output " + JSON.stringify(response.body));
-                let humidity = res.body.main.humidity;
-                let visibility = res.body.visibility;
-                let wind = res.body.wind.speed;
-                let temp = res.body.main.temp;
-               // res.write(res.body);
-               // res.end();
-                //response.say("response  ,,,");
-               // response.say(`Today weather looks  ${desc}  in  ${city}  with humidity is ${humidity}  temperature is ${temp} visibility is ${visibility} and the wind speed is ${wind} Do you like to continue.`).shouldEndSession(false).send();
-                // if (error) {
-                //     return console.log(error);
-                // }
-                // console.log(JSON.stringify(response));
-                // console.log(data.name);
-            });
-console.log(JSON.stringify(result));
+            //                // console.log("output " + JSON.stringify(response.body));
+            //                 let humidity = res.body.main.humidity;
+            //                 let visibility = res.body.visibility;
+            //                 let wind = res.body.wind.speed;
+            //                 let temp = res.body.main.temp;
+            //                // res.write(res.body);
+            //                // res.end();
+            //                 //response.say("response  ,,,");
+            //                // response.say(`Today weather looks  ${desc}  in  ${city}  with humidity is ${humidity}  temperature is ${temp} visibility is ${visibility} and the wind speed is ${wind} Do you like to continue.`).shouldEndSession(false).send();
+            //                 // if (error) {
+            //                 //     return console.log(error);
+            //                 // }
+            //                 // console.log(JSON.stringify(response));
+            //                 // console.log(data.name);
+            //             });
+            // console.log(JSON.stringify(result));
 
             // let desc = weather.description;
             // let humidity = main.humidity;
@@ -123,5 +141,27 @@ function GetcityResponse(cities, callback) {
 app.intent('ThankYouIntent', function (request, response) {
     response.say("Thank you, Namdri and dhanniyavaath");
 });
+function FAADataHelper() { }
 
+FAADataHelper.prototype.requestStatus = function (city) {
+    // body...  
+    return this.getStatus(city).then(
+        function (response) {
+            console.log('success - received airport info for ' + city);
+            return response.body;
+        }
+
+    );
+};
+
+FAADataHelper.prototype.getStatus = function (city) {
+    var options = {
+        method: 'GET',
+        uri: `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f124bbe4bc06cf62b4dbbc17cb4c0692`,
+        resolveWithFullResponse: true,
+        json: true
+    };
+
+    return rp(options);
+};
 module.exports = app;
